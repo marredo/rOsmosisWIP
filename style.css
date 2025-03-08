@@ -1,0 +1,159 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+  }
+  
+  #simulation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: min-content;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 5px;
+    width: 700px;
+  }
+  
+  .input-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+  }
+  
+  .input-label {
+    font-weight: bold;
+    font-size: 14px;
+    justify-self: start;
+  }
+  
+  .value-label {
+    font-size: 14px;
+    text-align: right;
+    width: 40px;
+  }
+  
+  #graphics-wrapper {
+    position: relative;
+    width: 700px;
+    height: 400px; /* For demonstration; adjust as needed */
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    box-shadow: 0px 0px 2px 2px grey;
+    margin-top: 5px;
+  }
+  
+  .slider-container {
+    position: relative;
+    width: 100%;
+    padding: 15px 0 20px 0;  /* Space for labels above and below */
+  }
+  
+  .current-value {
+    position: absolute;
+    top: -0px; /* Changed from -15px to bring it closer to the slider thumb */
+    left: 0;
+    color: #4caf50;
+    font-size: 12px;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+  
+  .min-max-labels {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .min-label {
+    text-align: left;
+  }
+  
+  .max-label {
+    text-align: right;
+  }
+    input[type="range"] {
+    width: 100%;
+    margin: 0;  /* Remove default margins */
+  }
+  
+  .mixture-data table {
+    width: 700px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .mixture-data th,
+  .mixture-data td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .mixture-data th:first-child,
+  .mixture-data td:first-child {
+    width: 70%;  /* Keep the Output column wider */
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .mixture-data th:last-child,
+  .mixture-data td:last-child {
+    width: 30%;  /* Keep the Value column narrower */
+  }
+  
+  .mixture-data th {
+    font-size: 14px;
+    background-color: #f5f5f5;
+  }
+  
+  .mixture-data input {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 2px;
+    border: 1px solid #eee;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+  }
+  
+  /* Make disabled inputs look cleaner */
+  .mixture-data input:disabled {
+    color: #333;
+    border: none;
+    background-color: #f9f9f9;
+  }
+  
+  /* Add this to your CSS */
+  .disclaimer {
+    color: #d9534f; /* Red color */
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+    width: 700px; /* Match width of other elements */
+    padding: 5px;
+    border-top: 1px dashed #d9534f; /* Light red dashed border on top */
+    border-bottom: 1px dashed #d9534f; /* Light red dashed border on bottom */
+  }
+  
