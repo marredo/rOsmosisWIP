@@ -15,12 +15,11 @@ let containerElement = document.getElementById("graphics-wrapper");
 function setup() {
   // Create the p5.js canvas inside #graphics-wrapper
   createCanvas(containerElement.offsetWidth, containerElement.offsetHeight).parent(containerElement);
+  handleMouseScaling();
 }
 
 function draw() {
-  window.width = 800;
-  window.height = 600;
-  scale(relativeSize());
+  handleScaling();
   background(245);
   textSize(18);
   fill(0);
@@ -42,4 +41,27 @@ function windowResized() {
 
 function relativeSize() {
   return containerElement.offsetWidth / 800;
+}
+
+function handleScaling() {
+  window.width = 800;
+  window.height = 600;
+  window.mouseX = mX;
+  window.mouseY = mY;
+  scale(relativeSize());
+}
+
+function handleMouseScaling() {
+  document.querySelector("canvas").addEventListener("mousemove", (e) => {
+    let rect = containerElement.getBoundingClientRect();
+    let mX = e.clientX - rect.left;
+    let mY = e.clientY - rect.top;
+
+    // Scale mouse coordinates to match the canvas size
+    window.mX = mX / relativeSize();
+    window.mY = mY / relativeSize();
+  });
+
+  window.mX = 0;
+  window.mY = 0;
 }

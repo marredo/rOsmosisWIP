@@ -19,6 +19,7 @@
   gap: 40px;
   align-items: center;
   margin-top: 5px;
+  margin-bottom: 5px;
   width: 700px;
 }
 
@@ -69,9 +70,9 @@
   position: relative;
   margin: auto;
   width: calc(100vw - 40px);
-  max-width: calc(calc(100vh - 130px) * 800 / 600);
+  max-width: calc(calc(100vh - 135px) * 800 / 600);
   height: calc(calc(100vw - 40px) * 600 / 800);
-  max-height: calc(100vh - 130px);
+  max-height: calc(100vh - 135px);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
 }
