@@ -10,11 +10,13 @@ let g = {
   feedTemp: 15
 };
 
-let containerElement = document.getElementById("graphics-wrapper");
+let graphicsWrapper = document.getElementById("graphics-wrapper");
+let containerDims = [800, 600]
 
 function setup() {
   // Create the p5.js canvas inside #graphics-wrapper
-  createCanvas(containerElement.offsetWidth, containerElement.offsetHeight).parent(containerElement);
+  createCanvas(graphicsWrapper.offsetWidth, graphicsWrapper.offsetHeight).parent(graphicsWrapper);
+  handleCanvasSize();
   handleMouseScaling();
 }
 
@@ -36,16 +38,16 @@ function draw() {
 /* Optionally add more complex math or animations here */
 
 function windowResized() {
-  resizeCanvas(containerElement.offsetWidth, containerElement.offsetHeight);
+  resizeCanvas(graphicsWrapper.offsetWidth, graphicsWrapper.offsetHeight);
 }
 
 function relativeSize() {
-  return containerElement.offsetWidth / 800;
+  return graphicsWrapper.offsetWidth / containerDims[0];
 }
 
 function handleScaling() {
-  window.width = 800;
-  window.height = 600;
+  window.width = containerDims[0];
+  window.height = containerDims[1];
   window.mouseX = mX;
   window.mouseY = mY;
   scale(relativeSize());
@@ -53,7 +55,7 @@ function handleScaling() {
 
 function handleMouseScaling() {
   document.querySelector("canvas").addEventListener("mousemove", (e) => {
-    let rect = containerElement.getBoundingClientRect();
+    let rect = graphicsWrapper.getBoundingClientRect();
     let mX = e.clientX - rect.left;
     let mY = e.clientY - rect.top;
 
@@ -64,4 +66,12 @@ function handleMouseScaling() {
 
   window.mX = 0;
   window.mY = 0;
+}
+
+function handleCanvasSize() {
+  graphicsWrapper.style.width = "calc(100vw - 40px)";
+  graphicsWrapper.style.maxWidth = `calc(calc(100vh - 190px) * ${containerDims[0]} / ${containerDims[1]})`;
+  graphicsWrapper.style.height = `calc(calc(100vw - 40px) * ${containerDims[1]} / ${containerDims[0]})`;
+  graphicsWrapper.style.maxHeight = `calc(100vh - 190px)`;
+  windowResized();
 }
