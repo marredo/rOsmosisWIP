@@ -9,16 +9,13 @@
   <title>Reverse Osmosis Simulation</title>
 
   <!-- Libraries -->
-  <script src="./libraries/p5.js"></script>
-  <script src="./libraries/math.js" type="text/javascript"></script>
+  <script src="./p5.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <!-- jQuery / Popper / Bootstrap -->
-  <script src="./jquery.js"></script>
-  <script src="./popper.js"></script>
   <script src="./bootstrap.min.js"></script>
-  <link href="./bootstrap.min.css" rel="stylesheet" />
+  <link href="./bootstrap.css" rel="stylesheet" />
 
   <!-- Custom styles -->
   <link href="./sliders.css" rel="stylesheet" />
@@ -42,44 +39,58 @@
   <div id="simulation-wrapper">
     <!-- Sliders / Inputs Section -->
     <div class="inputs-wrapper">
-      <div class="input-row">
-        <div class="input-label">Feed Pressure</div>
-        <div class="slider-container">
-          <input type="range" id="feed-pressure" min="10" max="30" step="1" value="10" />
-          <div class="current-value">X</div>
-          <div class="slider-units">bar</div>
-          <div class="min-max-labels">
-            <span class="min-label">10</span>
-            <span class="max-label">30</span>
+      <div class="sliders-wrapper">
+        <div class="input-row">
+          <div class="input-label">Feed Pressure</div>
+          <div class="slider-container">
+            <input type="range" id="feed-pressure" min="10" max="30" step="1" value="10" />
+            <div class="current-value">X</div>
+            <div class="slider-units">bar</div>
+            <div class="min-max-labels">
+              <span class="min-label">10</span>
+              <span class="max-label">30</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="input-row">
+          <div class="input-label">Feed Temperature</div>
+          <div class="slider-container">
+            <input type="range" id="feed-temp" min="15" max="60" step="1" value="15" />
+            <div class="current-value">X</div>
+            <div class="slider-units">°C</div>
+            <div class="min-max-labels">
+              <span class="min-label">15</span>
+              <span class="max-label">60</span>
+            </div>
           </div>
         </div>
 
+        <div class="input-row">
+          <div class="input-label">NaCl Concentration</div>
+          <div class="slider-container">
+            <input type="range" id="salt-conc" min="0.5" max="3.5" step="0.5" value="0.5" />
+            <div class="current-value">X</div>
+            <div class="slider-units">%</div>
+            <div class="min-max-labels">
+              <span class="min-label">0.5</span>
+              <span class="max-label">3.5</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="input-row">
-        <div class="input-label">Feed Temperature</div>
-        <div class="slider-container">
-          <input type="range" id="feed-temp" min="15" max="60" step="1" value="15" />
-          <div class="current-value">X</div>
-          <div class="slider-units">°C</div>
-          <div class="min-max-labels">
-            <span class="min-label">15</span>
-            <span class="max-label">60</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="input-row">
-        <div class="input-label">NaCl Concentration</div>
-        <div class="slider-container">
-          <input type="range" id="salt-conc" min="0.5" max="3.5" step="0.5" value="0.5" />
-          <div class="current-value">X</div>
-          <div class="slider-units">%</div>
-          <div class="min-max-labels">
-            <span class="min-label">0.5</span>
-            <span class="max-label">3.5</span>
-          </div>
-        </div>
+      <div class="buttons-wrapper">
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#directions-modal">
+          directions
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#details-modal">
+          details
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#about-modal">
+          about
+        </button>
       </div>
     </div>
 
@@ -90,7 +101,59 @@
     <div class="disclaimer">
       Currently work in progress, with placeholder values. Not fully functional yet.
     </div>
+
+    <div id="directions-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Directions</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Directions go here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="details-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Details go here. Use TeX scripts to write equations.</p>
+            <p class="box-eqn">
+              $$ [1] \quad \frac{P_{feed} - P_{permeate}}{R} = \frac{C_{salt}}{C_{water}} $$
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="about-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">About</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              This simulation was created in the <a href="https://www.colorado.edu/chbe" target="_blank">Department of Chemical and Biological Engineering</a>, at University of Colorado Boulder for <a href="http://www.learncheme.com" target="_blank">LearnChemE.com</a>              by Manuel Arredondo and Neil Hendren under the direction of Professor John L. Falconer. Address any questions or comments to learncheme@gmail.com. All of our simulations are open source, and are available on our
+              <a href="https://github.com/LearnChemE/LearnChemE.github.io/" target="_blank">LearnChemE Github repository</a>.<br><br>Is your screen too small to fit this application? Try zooming-out on the web page (CTRL+"-" and CTRL+"=" on Windows, or
+              ⌘+"-" and ⌘+"=" on Mac), then refreshing the page. This application is not compatible with Internet Explorer or web browsers that do not support WebGL and HTML5. Recommended browsers are the latest versions of: Chrome, Safari, Firefox, Edge,
+              and Opera.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script src="./functions.js"></script>
 
 </body>
 

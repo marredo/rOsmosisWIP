@@ -33,11 +33,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const saltSlider = document.getElementById('salt-conc');
   saltSlider.addEventListener('input', () => updateSliderValue('salt-conc'));
   updateSliderValue('salt-conc');
-
-  // Also update on window resize to maintain correct positioning
-  window.addEventListener('resize', () => {
-    updateSliderValue('feed-pressure');
-    updateSliderValue('feed-temp');
-    updateSliderValue('salt-conc');
-  });
 });
