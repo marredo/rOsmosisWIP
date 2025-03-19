@@ -2,34 +2,19 @@
 function updateSliderValue(sliderId) {
   // Get the slider element
   const slider = document.getElementById(sliderId);
-  
+
   // Get the current value element
   const currentValue = slider.parentElement.querySelector('.current-value');
-  
+
   // Get the slider's current value
   const value = parseFloat(slider.value);
-  
+
   // Format the value based on the slider's step
   const step = parseFloat(slider.step);
   const decimals = step < 1 ? 1 : 0; // Show 1 decimal place for step < 1
-  
+
   // Update the text to show the current value instead of "X"
   currentValue.textContent = value.toFixed(decimals);
-  
-  // Calculate position percentage
-  const min = parseFloat(slider.min);
-  const max = parseFloat(slider.max);
-  const percentage = (value - min) / (max - min);
-  
-  // Get the thumb position
-  // We need to account for the thumb width and the slider's padding
-  const thumbWidth = 15; // Width of the slider thumb in pixels
-  const sliderWidth = slider.offsetWidth - thumbWidth; // Usable width of the slider
-  const thumbPosition = percentage * sliderWidth + thumbWidth/2;
-  
-  // Update the X position
-  currentValue.style.left = thumbPosition + 'px';
-  currentValue.style.transform = 'translateX(-50%)';
 }
 
 // Add event listeners to the sliders
@@ -38,22 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const pressureSlider = document.getElementById('feed-pressure');
   pressureSlider.addEventListener('input', () => updateSliderValue('feed-pressure'));
   updateSliderValue('feed-pressure');
-  
+
   // Set up Feed Temperature slider
   const tempSlider = document.getElementById('feed-temp');
   tempSlider.addEventListener('input', () => updateSliderValue('feed-temp'));
   updateSliderValue('feed-temp');
-  
+
   // Set up NaCl Concentration slider
   const saltSlider = document.getElementById('salt-conc');
   saltSlider.addEventListener('input', () => updateSliderValue('salt-conc'));
   updateSliderValue('salt-conc');
-  
-  // Also update on window resize to maintain correct positioning
-  window.addEventListener('resize', () => {
-    updateSliderValue('feed-pressure');
-    updateSliderValue('feed-temp');
-    updateSliderValue('salt-conc');
-  });
 });
-
