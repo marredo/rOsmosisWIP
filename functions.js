@@ -25,17 +25,115 @@ function setup() {
 
 function draw() {
   handleScaling();
-  background(245);
+  background(255);
+  
+  // Title and parameters display
   textSize(18);
   fill(0);
   text("Reverse Osmosis Visualization", 20, 30);
+  textSize(16);
+  text(`Feed Pressure: ${g.feedPressure.toFixed(1)} bar`, 20, 60);
+  text(`Salt Concentration: ${g.saltConc.toFixed(2)}%`, 20, 85);
+  text(`Feed Temp: ${g.feedTemp} °C`, 20, 110);
 
-  textSize(14);
-  text("Feed Pressure: " + g.feedPressure.toFixed(1) + " bar", 20, 60);
-  text("Salt Concentration: " + g.saltConc.toFixed(2) + "%", 20, 80);
-  text("Feed Temp: " + g.feedTemp.toFixed(0) + " °C", 20, 100);
+  // Draw pipe first so it appears behind everything
+  drawPipeAndPump(100, 250);
+  // Draw tank last so it appears on top
+  drawSaltTank(100, 250);
+}
 
-  // Here you would draw your membrane, streams, or other visual elements
+function drawSaltTank(x, y) {
+  // Tank outline
+  stroke(0);
+  strokeWeight(2);
+  noFill();
+  rect(x, y, 100, 150, 15);
+  
+  // Fill with solid light blue solution (removed transparency)
+  fill(220, 230, 255);  // Removed the alpha value to make it solid
+  noStroke();
+  rect(x, y, 100, 150, 15);
+  
+  // Add text
+  fill(0);
+  textSize(20);
+  textAlign(CENTER);
+  text("Salt", x + 50, y + 60);
+  text("Solution", x + 50, y + 85);
+  
+  textAlign(LEFT);
+}
+
+function drawPipeAndPump(tankX, tankY) {
+  // Calculate pipe start position
+  let pipeStartX = tankX + 100;
+  let pipeY = tankY + 75;
+  
+  // Draw pressure gauge base (behind pipe)
+  let gaugeX = tankX + 260;  // Positioned right after pump
+  fill(150);  // Same gray as pump
+  noStroke();
+  rect(gaugeX + 7, pipeY - 25, 10, 20);  // Small rectangle poking up behind pipe
+  
+  // Add thin centered rectangle behind gauge
+  rect(gaugeX - 2, pipeY - 10, 29, 10);  // Slightly wider and thinner rectangle
+  
+  // Draw circle above the T structure
+  circle(gaugeX + 12, pipeY - 28, 30);  // Centered above the T structure
+
+  fill(255);  // White color
+circle(gaugeX + 12, pipeY - 28, 22);  // Same center, slightly smaller diameter
+
+// Add red dot at bottom of gauge and needle
+fill(255, 0, 0);  // Red color
+circle(gaugeX + 12, pipeY - 22, 4);  // Small red circle near bottom
+
+// Add gauge needle from red dot at 45 degrees left
+stroke(255, 0, 0);  // Red color
+strokeWeight(1);  // Thin line
+let needleLength = 9;  // Shorter needle
+let endX = gaugeX + 12 - (needleLength * Math.cos(Math.PI/4));  // 45 degrees left
+let endY = pipeY - 22 - (needleLength * Math.sin(Math.PI/4));
+line(gaugeX + 12, pipeY - 22, endX, endY);  // Line at 45 degrees
+
+// Reset stroke for pipe
+noStroke();
+  
+  // Draw horizontal pipe
+  stroke(100);
+  strokeWeight(8);
+  line(pipeStartX, pipeY, pipeStartX + 350, pipeY);
+  
+  // Draw pump
+  let pumpX = tankX + 150;
+  
+  // T-valve (drawn first so it appears behind)
+  stroke(0);
+  strokeWeight(2);
+  fill(0);
+  rect(pumpX + 25, pipeY - 35, 10, 25);
+  rect(pumpX + 15, pipeY - 35, 30, 8);
+  
+  // Pump body as wider rounded rectangle
+  fill(150);
+  stroke(0);
+  strokeWeight(2);
+  rect(pumpX - 5, pipeY - 20, 70, 40, 5);
+  
+  // Add "Pump" label
+  noStroke();
+  fill(0);
+  textSize(16);
+  textAlign(CENTER);
+  text("Pump", pumpX + 30, pipeY - 45);
+  
+  textAlign(LEFT);
+
+  // Add white rounded rectangle to right of gauge
+  stroke(0);  // Black outline
+  strokeWeight(1);
+  fill(255);  // White fill
+  rect(gaugeX + 75, pipeY - 35, 250, 70, 8);  // Centered vertically on pipe
 }
 
 /* Optionally add more complex math or animations here */
