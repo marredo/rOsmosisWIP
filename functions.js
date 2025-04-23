@@ -27,7 +27,7 @@ function draw() {
   handleScaling();
   background(255);
   
-  // Title and parameters display
+  // Title and parameters display first
   textSize(18);
   fill(0);
   text("Reverse Osmosis Visualization", 20, 30);
@@ -37,9 +37,10 @@ function draw() {
   text(`Feed Temp: ${g.feedTemp} °C`, 20, 110);
 
   // Draw pipe first so it appears behind everything
-  drawPipeAndPump(100, 250);
+  drawPipeAndPump(50, 250);
+  
   // Draw tank last so it appears on top
-  drawSaltTank(100, 250);
+  drawSaltTank(50, 250);
 }
 
 function drawSaltTank(x, y) {
@@ -102,7 +103,27 @@ noStroke();
   // Draw horizontal pipe
   stroke(100);
   strokeWeight(8);
-  line(pipeStartX, pipeY, pipeStartX + 350, pipeY);
+  line(pipeStartX, pipeY, pipeStartX + 520, pipeY);
+  
+  // Add 90-degree elbow bend at the end
+  line(pipeStartX + 520, pipeY, pipeStartX + 520, pipeY + 30);  // Vertical part of the elbow
+  
+  // Add faucet end (wider rectangle)
+  noStroke();
+  fill(100);  // Same gray as pipe
+  rect(pipeStartX + 515, pipeY + 28, 11, 7, 2);  // Slightly wider than pipe, rounded corners
+  
+  // Add beaker under first faucet
+  stroke(0);
+  strokeWeight(2);
+  fill(0);
+  let beakerX1 = pipeStartX + 509;  // Align with first faucet
+  let beakerY1 = pipeY + 40;    // Position below first faucet
+  rect(beakerX1, beakerY1, 4, 70, 4);          // Left vertical rectangle
+  rect(beakerX1 - 7, beakerY1, 10, 4, 4);      // Top horizontal rectangle protruding left
+  rect(beakerX1, beakerY1 + 66, 56, 4, 4);     // Bottom horizontal rectangle
+  rect(beakerX1 + 52, beakerY1, 4, 70, 4);     // Right vertical rectangle
+  rect(beakerX1 + 52, beakerY1, 8, 4, 4);      // Top horizontal rectangle protruding right
   
   // Draw pump
   let pumpX = tankX + 150;
@@ -133,7 +154,51 @@ noStroke();
   stroke(0);  // Black outline
   strokeWeight(1);
   fill(255);  // White fill
-  rect(gaugeX + 75, pipeY - 35, 250, 70, 8);  // Centered vertically on pipe
+  rect(gaugeX + 75, pipeY - 35, 200, 70, 8);  // Centered vertically on pipe
+
+  // Add back pressure regulator
+  noStroke();
+  fill(0);  // Black fill
+  rect(gaugeX + 300, pipeY - 12.5, 40, 25, 5);  // Centered on pipe (-12.5 to center 25px height on pipe)
+
+  // Add vertical part centered on horizontal part
+  rect(gaugeX + 310, pipeY - 29, 20, 46, 5);  // Made wider (20px instead of 10px)
+
+  // Add pentagon on top
+  beginShape();
+  let pentX = gaugeX + 320;  // Center of pentagon
+  let pentY = pipeY - 33;    // Top position
+  let pentSize = 14;         // Size of pentagon
+
+  // Calculate pentagon points
+  vertex(pentX, pentY - pentSize);  // Top point
+  vertex(pentX + pentSize, pentY - pentSize/3);  // Upper right
+  vertex(pentX + pentSize/1.5, pentY + pentSize);  // Lower right
+  vertex(pentX - pentSize/1.5, pentY + pentSize);  // Lower left
+  vertex(pentX - pentSize, pentY - pentSize/3);  // Upper left
+  endShape(CLOSE);
+
+  // Add gray rounded rectangle at bottom of membrane
+  noStroke();
+  fill(100);  // Same gray as pipes
+  rect(gaugeX + 246, pipeY + 35, 10, 25);  // Vertical pipe section
+  
+  // Add faucet end at bottom (reusing existing faucet design)
+  noStroke();
+  fill(100);  // Same gray as pipe
+  rect(gaugeX + 244, pipeY + 58, 14, 8, 2);  // Slightly wider than pipe, rounded corners
+  
+  // Add beaker prototype
+  stroke(0);
+  strokeWeight(2);
+  fill(0);
+  let beakerX = gaugeX + 238;  // Align with faucet (moved 6px left from 244)
+  let beakerY = pipeY + 70;    // Position below faucet
+  rect(beakerX, beakerY, 4, 70, 4);          // Left vertical rectangle
+  rect(beakerX - 7, beakerY, 10, 4, 4);       // Top horizontal rectangle protruding left
+  rect(beakerX, beakerY + 66, 56, 4, 4);     // Bottom horizontal rectangle
+  rect(beakerX + 52, beakerY, 4, 70, 4);     // Right vertical rectangle
+  rect(beakerX + 52, beakerY, 8, 4, 4);      // Top horizontal rectangle protruding right
 }
 
 /* Optionally add more complex math or animations here */
